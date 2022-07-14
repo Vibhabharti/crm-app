@@ -2,10 +2,12 @@ import React, {useState} from 'react'
 import { Dropdown,DropdownButton} from 'react-bootstrap'
 import {userSignup} from '../api/auth'
 
+
 function Login() {
   const[ showSignup, setShowSignup] = useState(false);
   const [userType, setuserType] = useState("CUSTOMER");
-  const [userSignupData, setUserSignupData]= userSignup({})
+  const [userSignupData, setUserSignupData]=useState({})
+  
 
   const toggleSingup =()=>{
     setShowSignup(!showSignup)
@@ -22,12 +24,26 @@ function Login() {
   }
    const signupFn=()=>
    {
-    return "hello"
+    const username = userSignupData.username;
+    const userId = userSignupData.userId;
+    const email = userSignupData.email;
+    const password = userSignupData.password;
+     
+
+    const data ={
+      name:username,
+      userId:userId,
+      email:email,
+      userType: userType,
+      password:password,
+    }
+    console.log ('DATA', data);
    }
     
   
   
-  return (
+  return
+   ( 
     <div className='bg-primary d-flex justify-content-center align-items-center vh-100'>
       <div className="card m-5 p-5">
         <div className="row">
@@ -48,9 +64,6 @@ function Login() {
   </div>
   <div className="text-info text-center" onClick={toggleSingup}> Don't have an account? Signup</div>
    </form>
-
-</div>
-              ):(
 
                 <div className="SignUp">SignUp
 <form onSubmit={signupFn}>
@@ -94,14 +107,15 @@ function Login() {
    </form>
 
 </div>
-              )
-            }
+            
+              
+            
           </div>
         </div>
       </div>
-    </div>
+      </div>
   
-  )
+ </div> )
 }
 
 export default Login;
